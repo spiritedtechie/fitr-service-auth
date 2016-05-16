@@ -4,5 +4,7 @@ import model.User;
 
 public interface UserDao {
 
-    public User create(User user);
+    User create(User user);
+
+    User getUserByEmail(String emailAddress);
 }

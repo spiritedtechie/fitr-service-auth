@@ -6,6 +6,8 @@ import dao.UserDaoImpl;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import resource.UserResource;
+import service.UserService;
+import service.UserServiceImpl;
 
 import java.net.UnknownHostException;
 
@@ -26,8 +28,10 @@ public class UserApplication extends Application<UserConfiguration> {
         DB db = setupMongoDB(configuration, environment);
 
         UserDao dao = new UserDaoImpl(db);
-
-        environment.jersey().register(new UserResource(dao));
+        UserService service = new UserServiceImpl(dao);
+        UserResource resource = new UserResource(service);
+        
+        environment.jersey().register(resource);
     }
 
     private DB setupMongoDB(UserConfiguration configuration, Environment environment) throws UnknownHostException {

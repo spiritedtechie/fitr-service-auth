@@ -3,6 +3,7 @@ package resource;
 import com.codahale.metrics.annotation.Timed;
 import dao.UserDao;
 import model.User;
+import service.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,10 +13,10 @@ import java.util.HashSet;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-    private UserDao dao;
+    private UserService service;
 
-    public UserResource(UserDao dao) {
-        this.dao = dao;
+    public UserResource(UserService service) {
+        this.service = service;
     }
 
     @GET
@@ -27,7 +28,7 @@ public class UserResource {
     @POST
     @Timed
     public User create(User user) {
-        return dao.create(user);
+        return service.create(user);
     }
 
     @PUT
