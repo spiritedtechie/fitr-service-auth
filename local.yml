@@ -1,0 +1,6 @@
+logging:
+  level: INFO
+
+mongoHost: 192.168.99.100
+mongoPort: 32768
+mongoDb: fitr
