@@ -21,5 +21,9 @@ public class UserServiceImpl implements UserService {
 
         return userDao.create(user);
     }
+
+    public User get(String emailAddress) {
+        return userDao.getUserByEmail(emailAddress);
+    }
 }
   

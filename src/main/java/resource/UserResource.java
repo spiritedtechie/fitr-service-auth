@@ -22,7 +22,7 @@ public class UserResource {
     @GET
     @Timed
     public User get(@QueryParam("email_address") String emailAddress) {
-        return null;
+        return service.get(emailAddress);
     }
 
     @POST
