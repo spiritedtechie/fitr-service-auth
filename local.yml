@@ -4,3 +4,4 @@ logging:
 mongoHost: 192.168.99.100
 mongoPort: 32768
 mongoDb: fitr
+authTokenSecret: 5wO:f4p)y{H<KD6

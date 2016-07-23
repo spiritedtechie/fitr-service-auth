@@ -6,5 +6,5 @@ public interface UserDao {
 
     User create(User user);
 
-    User getUserByEmail(String emailAddress);
+    User findUser(String email);
 }

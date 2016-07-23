@@ -1,0 +1,7 @@
+FROM java:8-jre
+COPY local.yml /opt/services
+COPY build/libs/fitr-service-user-1.0-SNAPSHOT.jar /opt/services
+EXPOSE 80
+EXPOSE 8081
+WORKDIR /opt/services
+CMD ["java", "-Xms128m", "-Xmx1500m", "-Dfile.encoding=UTF-8", "-jar", "fitr-service-user-1.0-SNAPSHOT.jar", "server", "daedocker.yml"]

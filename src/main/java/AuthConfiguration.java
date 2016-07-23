@@ -1,5 +1,3 @@
-package config;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -7,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-public class UserConfiguration extends Configuration {
+public class AuthConfiguration extends Configuration {
 
     @NotEmpty
     private String mongoHost;
@@ -18,6 +16,9 @@ public class UserConfiguration extends Configuration {
 
     @NotEmpty
     private String mongoDb;
+
+    @NotEmpty
+    private String authTokenSecret;
 
     @JsonProperty
     public String getMongoHost() {
@@ -49,4 +50,13 @@ public class UserConfiguration extends Configuration {
         this.mongoDb = mongoDb;
     }
 
+    @JsonProperty
+    public String getAuthTokenSecret() {
+        return authTokenSecret;
+    }
+
+    @JsonProperty
+    public void setAuthTokenSecret(String authTokenSecret) {
+        this.authTokenSecret = authTokenSecret;
+    }
 }

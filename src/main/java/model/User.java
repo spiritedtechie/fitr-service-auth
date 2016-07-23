@@ -1,16 +1,27 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Set;
+import java.security.Principal;
 
-public class User {
+public class User implements Principal {
 
     private String id;
 
-    private String emailAddress;
+    private String email;
 
-    private Set<String> activities;
+    private String hash;
+
+    private Role role = Role.NORMAL;
+
+    public User() {
+    }
+
+    public User(String email, String hash) {
+        this.email = email;
+        this.hash = hash;
+    }
 
     @JsonProperty(value = "_id")
     public String getId() {
@@ -18,13 +29,23 @@ public class User {
     }
 
     @JsonProperty
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
     @JsonProperty
-    public Set<String> getActivities() {
-        return activities;
+    public String getHash() {
+        return hash;
     }
 
+    @JsonProperty
+    public Role getRole() {
+        return role;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getName() {
+        return email;
+    }
 }

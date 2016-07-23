@@ -25,14 +25,15 @@ public class UserDaoImpl implements UserDao {
         return result.getSavedObject();
     }
 
-    public User getUserByEmail(String emailAddress) {
-
+    @Override
+    public User findUser(String email) {
         JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(
                 database.getCollection("users"), User.class, String.class);
 
         BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("emailAddress", emailAddress);
+        whereQuery.put("email", email);
 
         return coll.findOne(whereQuery);
+
     }
 }
