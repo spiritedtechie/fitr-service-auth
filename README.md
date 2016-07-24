@@ -27,14 +27,14 @@ Run the service:
 
     gradle run
 
-POST http://localhost:8080/signup
+POST https://localhost:8443/signup
 
-    curl -H "Content-Type: application/json" -X POST -d '{"email": "bob@gmail.com", "password": "test123"}' http://localhost:8080/signup
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://localhost:8443/signup
 
-POST http://localhost:8080/login
+POST http://localhost:8443/login
 
-    curl -H "Content-Type: application/json" -X POST -d '{"email": "bob@gmail.com", "password": "test123"}' http://localhost:8080/login
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://localhost:8443/login
 
 POST Invalid password
 
-    curl -H "Content-Type: application/json" -X POST -d '{"email": "bob@gmail.com", "password": "test1234"}' http://localhost:8080/login
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://localhost:8443/signup

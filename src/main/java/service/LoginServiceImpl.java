@@ -5,9 +5,11 @@ import dao.UserDao;
 import exception.LoginException;
 import exception.NotAuthorizedException;
 import exception.UserNotFoundException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import model.AuthTokenRole;
+import model.Role;
 import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
 
         String authToken;
         try {
-            authToken = buildJwt(email);
+            authToken = buildJwt(email, user.getRole());
         } catch (Exception e) {
             throw new LoginException("Unable to login as auth token build failed", e);
         }
@@ -57,11 +59,14 @@ public class LoginServiceImpl implements LoginService {
         return new AuthTokenRole(authToken, user.getRole());
     }
 
-    private String buildJwt(String email) {
+    private String buildJwt(String email, Role role) {
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("role", role.toString());
+
         return Jwts.builder()
-                .setSubject(email)
                 .setExpiration(oneDayFromNow())
                 .setIssuedAt(now())
+                .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
     }

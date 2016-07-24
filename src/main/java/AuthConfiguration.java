@@ -2,52 +2,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public class AuthConfiguration extends Configuration {
 
-    @NotEmpty
-    private String mongoHost;
+    @Valid
+    @NotNull
+    private DatabaseConfiguration database = new DatabaseConfiguration();
 
-    @Min(1)
-    @Max(65535)
-    private int mongoPort;
-
-    @NotEmpty
-    private String mongoDb;
-
+    @NotNull
     @NotEmpty
     private String authTokenSecret;
 
-    @JsonProperty
-    public String getMongoHost() {
-        return mongoHost;
+    @JsonProperty("database")
+    public DatabaseConfiguration getDatabase() {
+        return database;
     }
 
-    @JsonProperty
-    public void setMongoHost(String mongoHost) {
-        this.mongoHost = mongoHost;
-    }
-
-    @JsonProperty
-    public int getMongoPort() {
-        return mongoPort;
-    }
-
-    @JsonProperty
-    public void setMongoPort(int mongoPort) {
-        this.mongoPort = mongoPort;
-    }
-
-    @JsonProperty
-    public String getMongoDb() {
-        return mongoDb;
-    }
-
-    @JsonProperty
-    public void setMongoDb(String mongoDb) {
-        this.mongoDb = mongoDb;
+    @JsonProperty("database")
+    public void setDataSourceFactory(DatabaseConfiguration datbaseConfiguration) {
+        this.database = datbaseConfiguration;
     }
 
     @JsonProperty

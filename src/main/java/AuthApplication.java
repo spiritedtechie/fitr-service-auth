@@ -67,8 +67,8 @@ public class AuthApplication extends Application<AuthConfiguration> {
     }
 
     private DB setupMongoDB(AuthConfiguration configuration, Environment environment) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient(configuration.getMongoHost(), configuration.getMongoPort());
-        DB db = mongoClient.getDB(configuration.getMongoDb());
+        MongoClient mongoClient = new MongoClient(configuration.getDatabase().getHost(), configuration.getDatabase().getPort());
+        DB db = mongoClient.getDB(configuration.getDatabase().getName());
         MongoManaged mongoManaged = new MongoManaged(mongoClient);
         environment.lifecycle().manage(mongoManaged);
         return db;
