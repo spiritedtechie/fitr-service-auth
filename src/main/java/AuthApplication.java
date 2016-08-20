@@ -38,17 +38,20 @@ public class AuthApplication extends Application<AuthConfiguration> {
                     Environment environment) throws Exception {
 
         DB db = setupMongoDB(configuration, environment);
-
         UserDao dao = new UserDaoImpl(db);
         SignupService signupService = new SignupServiceImpl(dao);
         LoginService loginService = new LoginServiceImpl(dao, configuration.getAuthTokenSecret());
         SignupResource signupResource = new SignupResource(signupService);
         LoginResource loginResource = new LoginResource(loginService);
 
-        environment.jersey().register(new LoggingFilter(getLogger(LoggingFilter.class.getName()), true));
+        // register logging filter for all requests (not printing entity for security)
+        environment.jersey().register(new LoggingFilter(getLogger(LoggingFilter.class.getName()), false));
+
+        // register resources
         environment.jersey().register(signupResource);
         environment.jersey().register(loginResource);
 
+        // register auth framework
         registerAuth(configuration, environment, dao);
     }
 

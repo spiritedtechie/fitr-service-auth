@@ -39,7 +39,7 @@ task oneJar(type: OneJar) {
 }
 
 run {
-    args 'server', 'local.yml'
+    args 'server', 'config-local.yml'
 }
 
 artifacts {
