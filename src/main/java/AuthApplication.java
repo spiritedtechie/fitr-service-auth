@@ -12,10 +12,10 @@ import io.dropwizard.setup.Environment;
 import model.User;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import resource.LoginResource;
+import resource.AuthenticateResource;
 import resource.SignupResource;
-import service.LoginService;
-import service.LoginServiceImpl;
+import service.AuthenticateService;
+import service.AuthenticateServiceImpl;
 import service.SignupService;
 import service.SignupServiceImpl;
 
@@ -40,19 +40,19 @@ public class AuthApplication extends Application<AuthConfiguration> {
         DB db = setupMongoDB(configuration, environment);
         UserDao dao = new UserDaoImpl(db);
         SignupService signupService = new SignupServiceImpl(dao);
-        LoginService loginService = new LoginServiceImpl(dao, configuration.getAuthTokenSecret());
+        AuthenticateService authenticateService = new AuthenticateServiceImpl(dao, configuration.getAuthTokenSecret());
         SignupResource signupResource = new SignupResource(signupService);
-        LoginResource loginResource = new LoginResource(loginService);
+        AuthenticateResource authenticateResource = new AuthenticateResource(authenticateService);
 
         // register logging filter for all requests (not printing entity for security)
         environment.jersey().register(new LoggingFilter(getLogger(LoggingFilter.class.getName()), false));
 
         // register resources
         environment.jersey().register(signupResource);
-        environment.jersey().register(loginResource);
+        environment.jersey().register(authenticateResource);
 
         // register auth framework
-        registerAuth(configuration, environment, dao);
+//        registerAuth(configuration, environment, dao);
     }
 
     private void registerAuth(AuthConfiguration configuration, Environment environment, UserDao dao) {

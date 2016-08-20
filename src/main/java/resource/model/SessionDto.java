@@ -1,13 +1,14 @@
-package resource.model.response;
+package resource.model;
 
 import model.Role;
+import model.Session;
 
-public class AuthTokenRoleDto {
+public class SessionDto {
 
     private String authToken;
     private Role role;
 
-    public AuthTokenRoleDto(String authToken, Role role) {
+    public SessionDto(String authToken, Role role) {
         this.authToken = authToken;
         this.role = role;
     }
@@ -26,5 +27,9 @@ public class AuthTokenRoleDto {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public static SessionDto from(Session session) {
+        return new SessionDto(session.getAuthToken(), session.getRole());
     }
 }

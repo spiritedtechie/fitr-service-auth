@@ -1,4 +1,4 @@
-package resource.model.response;
+package resource.model;
 
 public enum ErrorCode {
 

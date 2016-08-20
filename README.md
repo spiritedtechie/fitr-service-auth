@@ -83,10 +83,14 @@ POST Signup
 
     curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/signup
 
-POST Login
+POST Successful authenticate
 
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/login
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/authenticate
 
-POST Invalid password
+POST Unsuccessful authenticate
 
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://<host>:8443/login
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://<host>:8443/authenticate
+
+POST Validate token
+
+    curl -k -H "Content-Type: text/plain" -X POST -d 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWVqc3BlZWoyQGdtYWlsLmNvbSIsInJvbGUiOiJOT1JNQUwifQ.l1sZyFjtMvFAfgDANG4V9HTHv42_Cvda6dy_tSTTtxOXIrIhtERuIqcFKNXOGMhEDGvo_RByYzdnACgSGxRBeg' https://<host>:8443/validate-token

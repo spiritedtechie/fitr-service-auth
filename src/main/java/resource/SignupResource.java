@@ -2,13 +2,11 @@ package resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import resource.model.response.ErrMsg;
-import resource.model.response.ErrorMessageWebException;
-import resource.model.request.UserDto;
-import service.LoginServiceImpl;
+import resource.model.ErrMsg;
+import resource.model.ErrorMessageWebException;
+import resource.model.CredentialsDto;
 import service.SignupService;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,9 +28,9 @@ public class SignupResource {
     }
 
     @POST
-    public Response signup(UserDto userDto) {
+    public Response signup(CredentialsDto credentialsDto) {
         try {
-            signupService.signup(userDto.getEmail(), userDto.getPassword());
+            signupService.signup(credentialsDto.getEmail(), credentialsDto.getPassword());
         } catch (Exception e) {
             LOG.error("Signup resource failed", e);
             throw new ErrorMessageWebException(ErrMsg.SIGNUP_FAILED);

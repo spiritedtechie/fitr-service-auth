@@ -1,4 +1,4 @@
-package resource.model.response;
+package resource.model;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

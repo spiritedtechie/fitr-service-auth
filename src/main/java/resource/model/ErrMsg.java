@@ -1,8 +1,8 @@
-package resource.model.response;
+package resource.model;
 
 public enum ErrMsg {
     SIGNUP_FAILED(ErrorCode.BAD_REQUEST),
-    LOGIN_FAILED(ErrorCode.BAD_REQUEST);
+    AUTH_FAILED(ErrorCode.BAD_REQUEST);
 
     private final ErrorCode value;
 

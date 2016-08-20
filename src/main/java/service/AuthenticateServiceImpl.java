@@ -2,61 +2,76 @@ package service;
 
 import auth.PasswordHash;
 import dao.UserDao;
-import exception.LoginException;
-import exception.NotAuthorizedException;
+import exception.AuthenticationException;
 import exception.UserNotFoundException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import model.AuthTokenRole;
 import model.Role;
+import model.Session;
 import model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class LoginServiceImpl implements LoginService {
+public class AuthenticateServiceImpl implements AuthenticateService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
+    private final static Logger LOG = LoggerFactory.getLogger(AuthenticateServiceImpl.class);
 
     private UserDao userDao;
     private String jwtSigningKey;
 
-    public LoginServiceImpl(UserDao userDao, String key) {
+    public AuthenticateServiceImpl(UserDao userDao, String key) {
         this.userDao = userDao;
         this.jwtSigningKey = key;
     }
 
     @Override
-    public AuthTokenRole login(String email, String password) {
+    public Session authenticate(String email, String password) {
 
         User user = userDao.findUser(email);
 
         if (user == null) {
-            throw new UserNotFoundException("Unable to login as could not find user");
+            throw new UserNotFoundException("Unable to authenticate as could not find user");
         }
 
         boolean isValid;
         try {
             isValid = PasswordHash.validatePassword(password, user.getHash());
         } catch (Exception e) {
-            throw new LoginException("Unable to login as compute failed", e);
+            throw new AuthenticationException("Unable to authenticate as compute failed", e);
         }
 
         if (!isValid) {
-            throw new NotAuthorizedException("Unable to login as password is incorrect");
+            throw new AuthenticationException("Unable to authenticate as password is incorrect");
         }
 
         String authToken;
         try {
             authToken = buildJwt(email, user.getRole());
         } catch (Exception e) {
-            throw new LoginException("Unable to login as auth token build failed", e);
+            throw new AuthenticationException("Unable to authenticate as auth token build failed", e);
         }
 
-        return new AuthTokenRole(authToken, user.getRole());
+        return new Session(authToken, user.getRole());
+    }
+
+    @Override
+    public void authenticateWithToken(String token) {
+        Jws<Claims> claimsJws;
+        try {
+            claimsJws = Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token);
+        } catch (Exception e) {
+            throw new AuthenticationException("Unable to authenticate as token is invalid", e);
+        }
+
+        if (claimsJws == null || claimsJws.getBody() == null || StringUtils.isEmpty(claimsJws.getBody().getSubject())) {
+            throw new AuthenticationException("Unable to authenticate as token is invalid");
+        }
     }
 
     private String buildJwt(String email, Role role) {
