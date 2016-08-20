@@ -16,13 +16,13 @@ Technologies
 Running in Development Mode
 ---------------------------
 
-1. Install MongoDB (easiest way is as a Docker container e.g. via Kitematic)
+1) Install MongoDB (easiest way is as a Docker container e.g. via Kitematic)
 
-2. Configure config-local.yml with MongoDB host, port and database name
+2) Configure config-local.yml with MongoDB host, port and database name
 
-3. Run the service:
+3) Run the service:
 
-    gradle run
+    ./gradlew run
 
 Build Distribution
 ------------------
@@ -31,7 +31,7 @@ There are two options here:
 
 1) Create a zip distribution
 
-    gradle build
+    ./gradlew build
     cd build/distributions
     unzip fitr-service-auth-1.0-SNAPSHOT.zip
     cd fitr-service-auth-1.0-SNAPSHOT
@@ -39,7 +39,7 @@ There are two options here:
 
 2) Create an uber jar
 
-    gradle oneJar
+    ./gradlew oneJar
     cd build/libs
     java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_config>
 
