@@ -53,9 +53,11 @@ Docker Compose is used to create and link two Docker containers:
 
 To get this running:
 
-1) Install Docker Toolbox, to run and manage containers on a VirtualBox VM.
+1) Install Docker Toolbox and start Kitematic. This will start a Docker VM in VirtualBox.
 
-2) Open Docker CLI from Kitematic.
+2) Configure Docker client to point to correct Docker machine
+
+    eval $(docker-machine env default)
 
 3) Change to the project root directory, then:
 
@@ -68,6 +70,10 @@ To get this running:
     docker ps
     docker logs <container_id>
     docker exec -it <container_id> bash
+
+7) Fetch the Docker VM IP to use when testing the APIs:
+
+    docker-machine ip default
 
 Testing APIs
 ------------
