@@ -56,8 +56,9 @@ Docker Installation
 
 5) In the project root directory:
 
+    ./gradlew clean oneJar
     docker build -t spiritedtechie/fitr-service-auth .
-    docker run -p 8443:8443 spiritedtechie/fitr-service-auth
+    docker run -d -p 8443:8443 spiritedtechie/fitr-service-auth
 
 6) For debugging, use one or more of the following:
 
@@ -65,21 +66,18 @@ Docker Installation
     docker logs <container_id>
     docker exec -it <container_id> bash
 
-You can find the host IP address of the Virtualbox Docker VM via Kitematic, and use it in the
-URLs below for testing i.e. replace localhost with the Docker VM IP address.
-
 Testing APIs
 ------------
 One the service is running in local development more (or in a Docker container), you can test as follows:
 
-POST https://localhost:8443/signup
+POST Signup
 
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://localhost:8443/signup
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/signup
 
-POST http://localhost:8443/login
+POST Login
 
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://localhost:8443/login
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/login
 
 POST Invalid password
 
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://localhost:8443/signup
+    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://<host>:8443/login
