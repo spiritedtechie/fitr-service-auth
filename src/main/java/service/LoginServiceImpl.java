@@ -22,11 +22,11 @@ public class LoginServiceImpl implements LoginService {
     private final static Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 
     private UserDao userDao;
-    private String key;
+    private String jwtSigningKey;
 
     public LoginServiceImpl(UserDao userDao, String key) {
         this.userDao = userDao;
-        this.key = key;
+        this.jwtSigningKey = key;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class LoginServiceImpl implements LoginService {
                 .setExpiration(oneDayFromNow())
                 .setIssuedAt(now())
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, key)
+                .signWith(SignatureAlgorithm.HS512, jwtSigningKey)
                 .compact();
     }
 

@@ -3,8 +3,7 @@ package resource;
 import model.AuthTokenRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import resource.model.request.LoginUserDto;
-import resource.model.response.AuthTokenRoleDto;
+import resource.model.request.UserDto;
 import resource.model.response.ErrMsg;
 import resource.model.response.ErrorMessageWebException;
 import service.LoginService;
@@ -30,7 +29,7 @@ public class LoginResource {
     }
 
     @POST
-    public Response login(LoginUserDto userDto) {
+    public Response login(UserDto userDto) {
         try {
             AuthTokenRole authTokenRole = loginService.login(userDto.getEmail(), userDto.getPassword());
             return Response.ok().entity(AuthTokenRole.from(authTokenRole)).build();
