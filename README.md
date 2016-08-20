@@ -35,30 +35,33 @@ There are two options here:
     cd build/distributions
     unzip fitr-service-auth-1.0-SNAPSHOT.zip
     cd fitr-service-auth-1.0-SNAPSHOT
-    ./bin/fitr-service-auth server <path_to_config>
+    ./bin/fitr-service-auth server <path_to_local_config>
 
 2) Create an uber jar
 
     ./gradlew oneJar
     cd build/libs
-    java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_config>
+    java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_local_config>
 
 Docker Installation
 -------------------
 
-1) Install Docker Toolbox, which will run and manage containers on a VirtualBox VM.
+Docker Compose is used to create and link two Docker containers:
 
-2) Install a MongoDB container via Kitematic.
+1. MongoDB instance
+2. The Auth microservice
 
-3) Configure config-docker.yml with MongoDB host, port and database name.
+To get this running:
 
-4) Open Docker CLI from Kitematic.
+1) Install Docker Toolbox, to run and manage containers on a VirtualBox VM.
 
-5) In the project root directory:
+2) Open Docker CLI from Kitematic.
+
+3) Change to the project root directory, then:
 
     ./gradlew clean oneJar
-    docker build -t spiritedtechie/fitr-service-auth .
-    docker run -d -p 8443:8443 spiritedtechie/fitr-service-auth
+    docker-compose build
+    docker-compose up -d
 
 6) For debugging, use one or more of the following:
 
@@ -68,7 +71,7 @@ Docker Installation
 
 Testing APIs
 ------------
-One the service is running in local development more (or in a Docker container), you can test as follows:
+One the service is running in local development more (or in Docker), you can test as follows:
 
 POST Signup
 
