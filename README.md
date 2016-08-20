@@ -29,7 +29,7 @@ Build Distribution
 
 There are two options here:
 
-1. Create a zip distribution
+1) Create a zip distribution
 
     gradle build
     cd build/distributions
@@ -37,40 +37,40 @@ There are two options here:
     cd fitr-service-auth-1.0-SNAPSHOT
     ./bin/fitr-service-auth server <path_to_config>
 
-2. Create an uber jar
+2) Create an uber jar
 
     gradle oneJar
     cd build/libs
     java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_config>
 
-
 Docker Installation
 -------------------
 
-1. Install Docker Toolbox, which will run and manage containers on a VirtualBox VM.
+1) Install Docker Toolbox, which will run and manage containers on a VirtualBox VM.
 
-2. Install a MongoDB container via Kitematic.
+2) Install a MongoDB container via Kitematic.
 
-3. Configure config-docker.yml with MongoDB host, port and database name
+3) Configure config-docker.yml with MongoDB host, port and database name.
 
-4. Open Docket CLI from Kitematic.
+4) Open Docker CLI from Kitematic.
 
-5. In the project root directory:
+5) In the project root directory:
 
     docker build -t spiritedtechie/fitr-service-auth .
     docker run -p 8443:8443 spiritedtechie/fitr-service-auth
 
-6. For debugging, either:
+6) For debugging, use one or more of the following:
 
     docker ps
     docker logs <container_id>
     docker exec -it <container_id> bash
 
-7. You can find the host IP address of the Virtualbox Docker VM via Kitematic, and use it in the
+You can find the host IP address of the Virtualbox Docker VM via Kitematic, and use it in the
 URLs below for testing i.e. replace localhost with the Docker VM IP address.
 
 Testing APIs
 ------------
+One the service is running in local development more (or in a Docker container), you can test as follows:
 
 POST https://localhost:8443/signup
 
