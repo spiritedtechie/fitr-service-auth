@@ -77,7 +77,7 @@ To get this running:
 
 Testing APIs
 ------------
-One the service is running in local development more (or in Docker), you can test as follows:
+Once the service is running, you can test as follows:
 
 POST Signup
 
