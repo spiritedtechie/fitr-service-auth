@@ -1,5 +1,15 @@
 FROM java:8
-ADD config-docker.yml /opt/services/config-docker.yml
+
+# Add SSL keystores
 ADD ssl/fitr-keystore.jks /opt/services/fitr-keystore.jks
+
+# Add application config
+ADD config-docker.yml /opt/services/config-docker.yml
+
+# Add application JAR
 ADD build/libs/fitr-service-auth-1.0-SNAPSHOT-standalone.jar /opt/services/fitr-service-auth.jar
+
+EXPOSE 8443
+
 WORKDIR /opt/services
+CMD ["java", "-Xms128m", "-Xmx1500m", "-Dfile.encoding=UTF-8", "-jar", "fitr-service-auth.jar", "server", "config-docker.yml"]

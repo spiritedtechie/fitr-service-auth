@@ -1,6 +1,5 @@
 service:
   build: .
-  command: java -Xms128m -Xmx1500m -Dfile.encoding=UTF-8 -jar fitr-service-auth.jar server config-docker.yml
   ports:
     - "8443:8443"
   links:
