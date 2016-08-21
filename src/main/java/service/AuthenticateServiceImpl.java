@@ -31,7 +31,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     }
 
     @Override
-    public Session authenticate(String email, String password) {
+    public String authenticate(String email, String password) {
 
         User user = userDao.findUser(email);
 
@@ -57,7 +57,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             throw new AuthenticationException("Unable to authenticate as auth token build failed", e);
         }
 
-        return new Session(authToken, user.getRole());
+        return authToken;
     }
 
     @Override

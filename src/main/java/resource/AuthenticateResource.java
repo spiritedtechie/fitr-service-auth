@@ -1,6 +1,5 @@
 package resource;
 
-import model.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import resource.model.CredentialsDto;
@@ -33,8 +32,8 @@ public class AuthenticateResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response authenticate(CredentialsDto credentialsDto) {
         try {
-            Session session = authenticateService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
-            return Response.ok().entity(SessionDto.from(session)).build();
+            String token = authenticateService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
+            return Response.ok().entity(SessionDto.from(token)).build();
         } catch (Exception e) {
             LOG.error("Auth resource failed", e);
             throw new ErrorMessageWebException(ErrMsg.AUTH_FAILED);
@@ -50,8 +49,8 @@ public class AuthenticateResource {
             authenticateService.authenticateWithToken(token);
             return Response.ok().build();
         } catch (Exception e) {
-            LOG.error("Auth resource failed", e);
-            throw new ErrorMessageWebException(ErrMsg.AUTH_FAILED);
+            LOG.error("Validate token resouce failed", e);
+            throw new ErrorMessageWebException(ErrMsg.INVALID_TOKEN);
         }
     }
 }
