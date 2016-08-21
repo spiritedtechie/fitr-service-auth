@@ -9,7 +9,7 @@ server:
   applicationConnectors:
     - type: https
       port: 8443
-      keyStorePath: example.keystore
+      keyStorePath: ssl/fitr-keystore.jks
       keyStorePassword: example
       validateCerts: false
       validatePeers: false
