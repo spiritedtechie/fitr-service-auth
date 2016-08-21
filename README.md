@@ -93,4 +93,4 @@ POST Unsuccessful authenticate
 
 POST Validate token
 
-    curl -k -H "Content-Type: text/plain" -X POST -d 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWVqc3BlZWoyQGdtYWlsLmNvbSIsInJvbGUiOiJOT1JNQUwifQ.l1sZyFjtMvFAfgDANG4V9HTHv42_Cvda6dy_tSTTtxOXIrIhtERuIqcFKNXOGMhEDGvo_RByYzdnACgSGxRBeg' https://<host>:8443/validate-token
+    curl -k -H "Content-Type: text/plain" -X POST -d 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxQGdtYWlsLmNvbSIsInJvbGUiOiJOT1JNQUwiLCJpZCI6IjU3YjljMmUyYzllNzdjMDAwMWU2NTIzOCJ9.BVjRZ7FFV40cmPeJl18_mbfvPbGfjMoBOoPKerE83GdvIle-h5RcUkGtOeWSJaXgpt5HjO5EmIu3heqwgDiAJQ' https://<host>:8443/validate-token
