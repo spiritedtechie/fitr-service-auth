@@ -8,8 +8,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import model.Role;
-import model.Session;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -52,7 +50,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
         String authToken;
         try {
-            authToken = buildJwt(email, user.getRole());
+            authToken = buildJwt(user);
         } catch (Exception e) {
             throw new AuthenticationException("Unable to authenticate as auth token build failed", e);
         }
@@ -74,9 +72,10 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         }
     }
 
-    private String buildJwt(String email, Role role) {
-        Claims claims = Jwts.claims().setSubject(email);
-        claims.put("role", role.toString());
+    private String buildJwt(User user) {
+        Claims claims = Jwts.claims().setSubject(user.getEmail());
+        claims.put("role", user.getRole().toString());
+        claims.put("id", user.getId());
 
         return Jwts.builder()
                 .setExpiration(oneDayFromNow())
