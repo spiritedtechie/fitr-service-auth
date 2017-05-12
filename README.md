@@ -21,28 +21,28 @@ Running in Development Mode
 2) Configure config-local.yml with MongoDB host, port and database name
 
 3) Run the service:
-
-    ./gradlew run
-
+```
+./gradlew run
+```
 Build Distribution
 ------------------
 
 There are two options here:
 
 1) Create a zip distribution
-
-    ./gradlew build
-    cd build/distributions
-    unzip fitr-service-auth-1.0-SNAPSHOT.zip
-    cd fitr-service-auth-1.0-SNAPSHOT
-    ./bin/fitr-service-auth server <path_to_local_config>
-
+```
+./gradlew build
+cd build/distributions
+unzip fitr-service-auth-1.0-SNAPSHOT.zip
+cd fitr-service-auth-1.0-SNAPSHOT
+./bin/fitr-service-auth server <path_to_local_config>
+```
 2) Create an uber jar
-
-    ./gradlew oneJar
-    cd build/libs
-    java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_local_config>
-
+```
+./gradlew oneJar
+cd build/libs
+java -jar fitr-service-auth-1.0-SNAPSHOT-standalone.jar server <path_to_local_config>
+```
 Docker Installation
 -------------------
 
@@ -56,41 +56,42 @@ To get this running:
 1) Install Docker Toolbox and start Kitematic. This will start a Docker VM in VirtualBox.
 
 2) Configure Docker client to point to correct Docker machine
-
-    eval $(docker-machine env default)
-
+```
+eval $(docker-machine env default)
+```
 3) Change to the project root directory, then:
-
-    ./gradlew clean oneJar
-    docker-compose build
-    docker-compose up -d
-
+```
+./gradlew clean oneJar
+docker-compose build
+docker-compose up -d
+```
 6) For debugging, use one or more of the following:
-
-    docker ps
-    docker logs <container_id>
-    docker exec -it <container_id> bash
-
+```
+docker ps
+docker logs <container_id>
+docker exec -it <container_id> bash
+```
 7) Fetch the Docker VM IP to use when testing the APIs:
-
-    docker-machine ip default
-
+```
+docker-machine ip default
+```
 Testing APIs
 ------------
 Once the service is running, you can test as follows:
 
 POST Signup
-
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/signup
-
+```
+curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/signup
+```
 POST Successful authenticate
-
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/authenticate
-
+```
+curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test123"}' https://<host>:8443/authenticate
+```
 POST Unsuccessful authenticate
-
-    curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://<host>:8443/authenticate
-
+```
+curl -k -H "Content-Type: application/json" -X POST -d '{"email": "bob1@gmail.com", "password": "test124"}' https://<host>:8443/authenticate
+```
 POST Validate token
-
-    curl -k -H "Content-Type: text/plain" -X POST -d 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxQGdtYWlsLmNvbSIsInJvbGUiOiJOT1JNQUwiLCJpZCI6IjU3YjljMmUyYzllNzdjMDAwMWU2NTIzOCJ9.BVjRZ7FFV40cmPeJl18_mbfvPbGfjMoBOoPKerE83GdvIle-h5RcUkGtOeWSJaXgpt5HjO5EmIu3heqwgDiAJQ' https://<host>:8443/validate-token
+```
+curl -k -H "Content-Type: text/plain" -X POST -d 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxQGdtYWlsLmNvbSIsInJvbGUiOiJOT1JNQUwiLCJpZCI6IjU3YjljMmUyYzllNzdjMDAwMWU2NTIzOCJ9.BVjRZ7FFV40cmPeJl18_mbfvPbGfjMoBOoPKerE83GdvIle-h5RcUkGtOeWSJaXgpt5HjO5EmIu3heqwgDiAJQ' https://<host>:8443/validate-token
+```
